@@ -26,7 +26,7 @@ const features = [
 const Benifit = () => {
   return (
     <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6 space-y-16">
+      <div data-aos="fade-right" className="max-w-7xl mx-auto px-6 space-y-16">
         {features.map((feature, index) => (
           <div
             key={index}

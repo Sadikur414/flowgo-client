@@ -1,7 +1,10 @@
 import image from "../../../assets/location-merchant.png";
 const BeMerchant = () => {
   return (
-    <div className="hero bg-[#03373D] lg:h-[438px] rounded-2xl my-16">
+    <div
+      data-aos="zoom-in-up"
+      className="hero bg-[#03373D] lg:h-[438px] rounded-2xl my-16"
+    >
       <div className="hero-content flex-col lg:flex-row-reverse items-center justify-between px-6 lg:px-16 py-10 lg:py-0">
         {/* Image Section */}
         <div className="flex justify-center w-full lg:w-1/2">

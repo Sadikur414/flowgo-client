@@ -6,16 +6,20 @@ import { router } from "./Router/Router";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-// ✅ Initialize AOS globally
-AOS.init({
-  duration: 4000, // animation duration in ms
-  once: true, // animation runs only once
-});
+import AuthProvider from "./Context/AuthContext/AuthProvider";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// ----------------------------Initialize AOS globally-------------------------
+AOS.init();
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <div className="max-w-7xl mx-auto">
-      <RouterProvider router={router} />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <div className="max-w-7xl mx-auto">
+          <RouterProvider router={router} />
+        </div>
+      </AuthProvider>
+    </QueryClientProvider>
   </StrictMode>
 );

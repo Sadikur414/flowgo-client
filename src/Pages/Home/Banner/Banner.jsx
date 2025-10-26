@@ -16,7 +16,7 @@ const Banner = () => {
       stopOnHover={false}
       swipeable={true}
     >
-      <div className="">
+      <div data-aos="zoom-in" className="">
         <img src={banner1} />
       </div>
       <div>

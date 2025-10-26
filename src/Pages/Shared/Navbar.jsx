@@ -1,44 +1,99 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import useAuth from "../../Hooks/useAuth";
 
 const Navbar = () => {
+  const { user } = useAuth();
   const navLinks = (
     <>
       <li>
         <NavLink
-          to="/services"
+          to="/"
           className={({ isActive }) =>
-            isActive ? "text-primary font-semibold  " : ""
+            isActive
+              ? "bg-[#CAEB66] text-black font-semibold rounded-md px-3 py-2 transition-all duration-200"
+              : "px-3 py-2 rounded-md hover:bg-[#f3f3f3] transition-all duration-200"
           }
         >
-          Services
+          Home
         </NavLink>
       </li>
+
+      <li>
+        <NavLink
+          to="/addparcel"
+          className={({ isActive }) =>
+            isActive
+              ? "bg-[#CAEB66] text-black font-semibold rounded-md px-3 py-2 transition-all duration-200"
+              : "px-3 py-2 rounded-md hover:bg-[#f3f3f3] transition-all duration-200"
+          }
+        >
+          Add Parcel
+        </NavLink>
+      </li>
+
       <li>
         <NavLink
           to="/coverage"
           className={({ isActive }) =>
-            isActive ? "text-primary font-semibold" : ""
+            isActive
+              ? "bg-[#CAEB66] text-black font-semibold rounded-md px-3 py-2 transition-all duration-200"
+              : "px-3 py-2 rounded-md hover:bg-[#f3f3f3] transition-all duration-200"
           }
         >
           Coverage
         </NavLink>
       </li>
+      {/********************************* Dashboard *********************************/}
+
+      {user?.email && (
+        <li>
+          <NavLink
+            to="/dashboard/myparcel"
+            className={({ isActive }) =>
+              isActive
+                ? "bg-[#CAEB66] text-black font-semibold rounded-md px-3 py-2 transition-all duration-200"
+                : "px-3 py-2 rounded-md hover:bg-[#f3f3f3] transition-all duration-200"
+            }
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      )}
+
+      <li>
+        <NavLink
+          to="/services"
+          className={({ isActive }) =>
+            isActive
+              ? "bg-[#CAEB66] text-black font-semibold rounded-md px-3 py-2 transition-all duration-200"
+              : "px-3 py-2 rounded-md hover:bg-[#f3f3f3] transition-all duration-200"
+          }
+        >
+          Services
+        </NavLink>
+      </li>
+
       <li>
         <NavLink
           to="/pricing"
           className={({ isActive }) =>
-            isActive ? "text-primary font-semibold" : ""
+            isActive
+              ? "bg-[#CAEB66] text-black font-semibold rounded-md px-3 py-2 transition-all duration-200"
+              : "px-3 py-2 rounded-md hover:bg-[#f3f3f3] transition-all duration-200"
           }
         >
           Pricing
         </NavLink>
       </li>
+
       <li>
         <NavLink
           to="/about"
           className={({ isActive }) =>
-            isActive ? "text-primary font-semibold" : ""
+            isActive
+              ? "bg-[#CAEB66] text-black font-semibold rounded-md px-3 py-2 transition-all duration-200"
+              : "px-3 py-2 rounded-md hover:bg-[#f3f3f3] transition-all duration-200"
           }
         >
           About Us
@@ -51,8 +106,8 @@ const Navbar = () => {
     <div className="navbar bg-base-100 shadow-md px-4">
       {/* Left Side: Logo */}
       <div className="navbar-start">
-        <NavLink to="/" className=" flex items-end">
-          <img src={logo} alt="Logo" className=" h-10 " />
+        <NavLink to="/" className="flex items-end gap-2">
+          <img src={logo} alt="Logo" className="h-10" />
           <p className="text-3xl font-bold">Goflow</p>
         </NavLink>
       </div>
@@ -64,8 +119,8 @@ const Navbar = () => {
 
       {/* Right Side: Buttons */}
       <div className="navbar-end">
-        <NavLink to="/signin" className="btn btn-ghost mr-2">
-          Sign In
+        <NavLink to="/login" className="btn btn-ghost mr-2">
+          Login
         </NavLink>
         <NavLink
           to="/be-rider"
@@ -99,8 +154,8 @@ const Navbar = () => {
         >
           {navLinks}
           <div className="mt-2 flex flex-col gap-2">
-            <NavLink to="/signin" className="btn btn-ghost btn-sm w-full">
-              Sign In
+            <NavLink to="/login" className="btn btn-ghost btn-sm w-full">
+              Login
             </NavLink>
             <NavLink
               to="/be-rider"

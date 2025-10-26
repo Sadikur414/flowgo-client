@@ -61,6 +61,8 @@ const Services = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6 lg:px-20">
         {servicesData.map((service, index) => (
           <div
+            data-aos="flip-left"
+            data-aos-easing="ease-out-cubic"
             key={index}
             className="card bg-white border border-gray-100 shadow-md hover:bg-[#CAEB66] transition-all duration-300 group h-full flex flex-col justify-center items-center text-center p-8 rounded-2xl"
           >
