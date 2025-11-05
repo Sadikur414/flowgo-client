@@ -1,9 +1,51 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
+  const handleLogout =() =>{
+    logOut()
+    .then(result =>{
+      Swal.fire({
+        title: "Logged Out!",
+        text: "You have successfully logged out.",
+        icon: "success",
+        confirmButtonText: "OK",
+        timer: 2000,
+        timerProgressBar: true,
+      });
+      console.log(result)
+    })
+    .catch(err=>{
+      console.error(err)
+    })
+  }
+
+  const entryOutButton = user ? (
+    <>
+      <button
+        onClick={handleLogout}
+        className="btn bg-[#CAEB66] text-black hover:bg-[#B4D54E]"
+      >
+        Logout
+      </button>
+    </>
+  ) : (
+    <>
+      <NavLink to="/login" className="btn btn-ghost mr-2">
+        Login
+      </NavLink>
+      <NavLink
+        to="/register"
+        className="btn bg-[#CAEB66] text-black hover:bg-[#B4D54E]"
+      >
+        Register
+      </NavLink>
+    </>
+  );
+
   const navLinks = (
     <>
       <li>
@@ -44,7 +86,6 @@ const Navbar = () => {
           Coverage
         </NavLink>
       </li>
-      {/********************************* Dashboard *********************************/}
 
       {user?.email && (
         <li>
@@ -104,7 +145,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar bg-base-100 shadow-md px-4">
-      {/* Left Side: Logo */}
+      {/* Left: Logo */}
       <div className="navbar-start">
         <NavLink to="/" className="flex items-end gap-2">
           <img src={logo} alt="Logo" className="h-10" />
@@ -112,23 +153,13 @@ const Navbar = () => {
         </NavLink>
       </div>
 
-      {/* Middle: Nav Links (Hidden on small screens) */}
+      {/* Middle: Nav Links */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
 
-      {/* Right Side: Buttons */}
-      <div className="navbar-end">
-        <NavLink to="/login" className="btn btn-ghost mr-2">
-          Login
-        </NavLink>
-        <NavLink
-          to="/be-rider"
-          className="btn bg-[#CAEB66] text-black hover:bg-[#B4D54E]"
-        >
-          Be a Rider
-        </NavLink>
-      </div>
+      {/* Right: Buttons */}
+      <div className="navbar-end">{entryOutButton}</div>
 
       {/* Mobile Menu */}
       <div className="dropdown dropdown-end lg:hidden">
@@ -153,17 +184,7 @@ const Navbar = () => {
           className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
         >
           {navLinks}
-          <div className="mt-2 flex flex-col gap-2">
-            <NavLink to="/login" className="btn btn-ghost btn-sm w-full">
-              Login
-            </NavLink>
-            <NavLink
-              to="/be-rider"
-              className="btn bg-[#CAEB66] text-black hover:bg-[#B4D54E] btn-sm w-full"
-            >
-              Be a Rider
-            </NavLink>
-          </div>
+          <div className="mt-2 flex flex-col gap-2">{entryOutButton}</div>
         </ul>
       </div>
     </div>

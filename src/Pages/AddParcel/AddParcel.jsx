@@ -3,12 +3,13 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 
 const AddParcelForm = () => {
   const data = useLoaderData(); // Your regions/districts data
   const { user } = useAuth();
   const AxiosSecure = useAxiosSecure();
+  const navigate= useNavigate()
 
   const [senderDistricts, setSenderDistricts] = useState([]);
   const [receiverDistricts, setReceiverDistricts] = useState([]);
@@ -110,6 +111,11 @@ const AddParcelForm = () => {
               confirmButtonColor: "#16a34a",
             });
             reset();
+  
+
+            // *****************Redirect to my parcel page ******************
+            navigate("/dashboard/myparcel");
+
           } else {
             Swal.fire({
               title: "Error!",

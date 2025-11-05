@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const { createUser } = useAuth();
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -12,10 +14,23 @@ const Register = () => {
   const onSubmit = (data) => {
     createUser(data.email, data.password)
       .then((userCredential) => {
-        console.log(userCredential.user);
+        Swal.fire({
+          title: "Registration Successful!",
+          text: "Your account has been created successfully.",
+          icon: "success",
+          confirmButtonText: "Continue",
+          timer: 2000,
+          timerProgressBar: true,
+        });
+        navigate('/')
       })
       .catch((error) => {
-        console.error(error);
+        Swal.fire({
+          title: "Registration Failed!",
+          text: error.message,
+          icon: "error",
+          confirmButtonText: "Try Again",
+        });
       });
   };
   return (
