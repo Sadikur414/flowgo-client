@@ -2,10 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const MyParcel = () => {
   const { user } = useAuth();
   const AxiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["my-parcels", user?.email],
@@ -17,6 +19,10 @@ const MyParcel = () => {
   });
 
   const parcels = Array.isArray(data) ? data : data?.parcels || [];
+
+  const handlePay =(id)=>{
+     navigate(`/dashboard/payment/${id}`)
+  }
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -88,7 +94,7 @@ const MyParcel = () => {
                     </button>
 
                     {parcel.payment_status === "unpaid" && (
-                      <button className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md text-sm font-medium">
+                      <button  onClick={() => handlePay(parcel._id)} className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md text-sm font-medium">
                         Pay
                       </button>
                     )}

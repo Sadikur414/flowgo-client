@@ -9,10 +9,9 @@ const DashboardLayout = () => {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `px-3 py-2 rounded-md text-sm font-semibold transition ${
-                isActive
-                  ? "bg-[#CAEB66] text-black"
-                  : "text-black hover:bg-[#CAEB66]/80"
+              `px-3 py-2 rounded-md text-sm font-semibold transition ${isActive
+                ? "bg-[#CAEB66] text-black"
+                : "text-black hover:bg-[#CAEB66]/80"
               }`
             }
           >
@@ -22,10 +21,9 @@ const DashboardLayout = () => {
           <NavLink
             to="/dashboard/myparcel"
             className={({ isActive }) =>
-              `px-3 py-2 rounded-md text-sm font-semibold transition ${
-                isActive
-                  ? "bg-[#CAEB66] text-black"
-                  : "text-black hover:bg-[#CAEB66]/80"
+              `px-3 py-2 rounded-md text-sm font-semibold transition ${isActive
+                ? "bg-[#CAEB66] text-black"
+                : "text-black hover:bg-[#CAEB66]/80"
               }`
             }
           >
@@ -33,29 +31,27 @@ const DashboardLayout = () => {
           </NavLink>
 
           <NavLink
-            to="/dashboard/orders"
+            to="/dashboard/paymentHistory"
             className={({ isActive }) =>
-              `px-3 py-2 rounded-md text-sm font-semibold transition ${
-                isActive
-                  ? "bg-[#CAEB66] text-black"
-                  : "text-black hover:bg-[#CAEB66]/80"
+              `px-3 py-2 rounded-md text-sm font-semibold transition ${isActive
+                ? "bg-[#CAEB66] text-black"
+                : "text-black hover:bg-[#CAEB66]/80"
               }`
             }
           >
-            Orders
+            Payment History
           </NavLink>
 
           <NavLink
-            to="/dashboard/profile"
+            to="/dashboard/tracking"
             className={({ isActive }) =>
-              `px-3 py-2 rounded-md text-sm font-semibold transition ${
-                isActive
-                  ? "bg-[#CAEB66] text-black"
-                  : "text-black hover:bg-[#CAEB66]/80"
+              `px-3 py-2 rounded-md text-sm font-semibold transition ${isActive
+                ? "bg-[#CAEB66] text-black"
+                : "text-black hover:bg-[#CAEB66]/80"
               }`
             }
           >
-            Profile
+            Tracking
           </NavLink>
         </nav>
       </aside>
