@@ -1,26 +1,29 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import useAuth from "../../Hooks/useAuth";
+
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
-  const handleLogout =() =>{
+  console.log(user)
+
+  const handleLogout = () => {
     logOut()
-    .then(result =>{
-      Swal.fire({
-        title: "Logged Out!",
-        text: "You have successfully logged out.",
-        icon: "success",
-        confirmButtonText: "OK",
-        timer: 2000,
-        timerProgressBar: true,
-      });
-      console.log(result)
-    })
-    .catch(err=>{
-      console.error(err)
-    })
+      .then(result => {
+        Swal.fire({
+          title: "Logged Out!",
+          text: "You have successfully logged out.",
+          icon: "success",
+          confirmButtonText: "OK",
+          timer: 2000,
+          timerProgressBar: true,
+        });
+        console.log(result)
+      })
+      .catch(err => {
+        console.error(err)
+      })
   }
 
   const entryOutButton = user ? (
@@ -104,6 +107,19 @@ const Navbar = () => {
 
       <li>
         <NavLink
+          to="/beARider"
+          className={({ isActive }) =>
+            isActive
+              ? "bg-[#CAEB66] text-black font-semibold rounded-md px-3 py-2 transition-all duration-200"
+              : "px-3 py-2 rounded-md hover:bg-[#f3f3f3] transition-all duration-200"
+          }
+        >
+          Be a Rider
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink
           to="/services"
           className={({ isActive }) =>
             isActive
@@ -115,18 +131,7 @@ const Navbar = () => {
         </NavLink>
       </li>
 
-      <li>
-        <NavLink
-          to="/pricing"
-          className={({ isActive }) =>
-            isActive
-              ? "bg-[#CAEB66] text-black font-semibold rounded-md px-3 py-2 transition-all duration-200"
-              : "px-3 py-2 rounded-md hover:bg-[#f3f3f3] transition-all duration-200"
-          }
-        >
-          Pricing
-        </NavLink>
-      </li>
+
 
       <li>
         <NavLink

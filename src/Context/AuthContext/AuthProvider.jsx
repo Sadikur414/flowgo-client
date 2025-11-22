@@ -4,7 +4,9 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
+
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import AuthContext from "./AuthContext";
 import { auth } from "../../firebase/firebase.init";
@@ -32,6 +34,11 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, googleProvider);
   };
 
+  //----------------Update user profile-------------------
+  const updateUserProfile = (profile) => {
+    return updateProfile(auth.currentUser, profile)
+  }
+
   //------------------------Logout User--------------------
   const logOut = () => {
     return signOut(auth);
@@ -52,6 +59,7 @@ const AuthProvider = ({ children }) => {
     createUser,
     signinUser,
     signInwithGoogle,
+    updateUserProfile,
     logOut,
   };
   return (

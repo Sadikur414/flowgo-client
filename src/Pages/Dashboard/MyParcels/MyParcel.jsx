@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../../Hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import Loading from "../../Shared/Loading";
 
 const MyParcel = () => {
   const { user } = useAuth();
@@ -48,9 +49,7 @@ const MyParcel = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className="text-center py-10 text-gray-600">Loading parcels...</div>
-    );
+    return <Loading></Loading>
   }
 
   return (

@@ -1,21 +1,42 @@
 import { useLocation, useNavigate } from "react-router";
-import useAuth from "../../../Hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
+import useAxios from "../../../hooks/useAxios";
 
 const SocialLogin = () => {
   const { signInwithGoogle } = useAuth();
+  const AxiosPublic = useAxios();
   const location = useLocation();
   const navigate = useNavigate()
   const from = location.state?.from || '/';
   const handleGoogleSignIn = () => {
     signInwithGoogle()
-      .then((result) => {
-        console.log(result);
-        navigate(from)
+      .then(async (result) => {
+        console.log(result.user.email);
+
+        const UserInfo = {
+          email: result.user.email,
+          role: "user",
+          created_at: new Date().toISOString(),
+          last_login: new Date().toISOString(),
+        };
+
+        try {
+          const res = await AxiosPublic.post("/users", UserInfo);
+          console.log(res.data);
+        } catch (error) {
+          if (error.response?.status === 409) {
+            console.log("User already exists, skipping insert...");
+          } else {
+            console.error("Failed to save user:", error);
+          }
+        }
+
+        navigate(from);
       })
       .catch((error) => {
         console.error(error);
       });
-  };
+  };;
   return (
     <div className="text-center">
       <div className="divider"></div>

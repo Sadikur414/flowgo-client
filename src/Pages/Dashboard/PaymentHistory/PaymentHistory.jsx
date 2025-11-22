@@ -1,7 +1,8 @@
 import React from 'react';
-import useAuth from '../../../Hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import Loading from '../../Shared/Loading';
 
 export default function PaymentHistory() {
     const { user } = useAuth();
@@ -11,11 +12,12 @@ export default function PaymentHistory() {
         queryKey: ["payments", user.email],
         queryFn: async () => {
             const res = await AxiosSecure.get(`/payments?email=${user.email}`);
-            return res.data.payments; // get only the array
+            return res.data; // get only the array
         }
     });
+    console.log(paymentInfo)
 
-    if (isLoading) return <p>Loading payment history...</p>;
+    if (isLoading) return <Loading></Loading>;
 
     return (
         <div className="max-w-5xl mx-auto mt-10 p-4">

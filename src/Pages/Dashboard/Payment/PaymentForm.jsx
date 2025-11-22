@@ -89,7 +89,7 @@ export default function PaymentForm() {
         text: `Transaction ID: ${result.paymentIntent.id}`,
         confirmButtonText: 'OK'
       }).then(() => {
-        navigate("/paymentHistory"); // Navigate to payment page
+        navigate("/dashboard/paymentHistory"); 
       });
     }
 

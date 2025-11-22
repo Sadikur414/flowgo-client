@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import useAuth from "../../Hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useLoaderData, useNavigate } from "react-router";
 
 const AddParcelForm = () => {
-  const data = useLoaderData(); // Your regions/districts data
+  const data = useLoaderData(); 
   const { user } = useAuth();
   const AxiosSecure = useAxiosSecure();
   const navigate= useNavigate()

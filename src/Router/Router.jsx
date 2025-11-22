@@ -11,6 +11,13 @@ import MyParcel from "../Pages/Dashboard/MyParcels/MyParcel";
 import Dashboardlayout from "../Layouts/Dashboardlayout";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
+import BeARider from "../Pages/Dashboard/BeARider/BeARider";
+import PendingRiders from "../Pages/Dashboard/PendingRiders/PendingRiders";
+import ActiveRiders from "../Pages/Dashboard/ActiveRiders/ActiveRiders";
+import MakeAdmin from "../Pages/Dashboard/MakeAdmin/MakeAdmin";
+import Forbidden from "../Pages/Forbidden/Forbidden";
+import AdminRoute from "../routes/AdminRoute";
+import AssignRider from "../Pages/Dashboard/AssignRider/AssignRider";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +33,10 @@ export const router = createBrowserRouter([
         Component: Coverage,
       },
       {
+        path: "forbidden",
+        Component: Forbidden
+      },
+      {
         path: "addparcel",
         element: (
           <PrivetRoute>
@@ -34,6 +45,15 @@ export const router = createBrowserRouter([
           </PrivetRoute>
         ),
         loader: () => fetch("/warehouses.json"),
+      },
+      {
+        path: "beARider",
+        element: (
+          <PrivetRoute>
+            <BeARider></BeARider>
+          </PrivetRoute>
+        ),
+        loader: () => fetch("/coverageData.json"),
       },
     ],
   },
@@ -56,7 +76,23 @@ export const router = createBrowserRouter([
       },
       {
         path: "paymentHistory",
-        Component:PaymentHistory,
+        Component: PaymentHistory,
+      },
+      {
+        path: "pendingRiders",
+        element: <AdminRoute><PendingRiders></PendingRiders></AdminRoute>,
+      },
+      {
+        path: "activeRiders",
+        element: <AdminRoute><ActiveRiders></ActiveRiders></AdminRoute>,
+      },
+      {
+        path: "assignRider",
+        element: <AdminRoute><AssignRider></AssignRider></AdminRoute>,
+      },
+      {
+        path: "makeAdmin",
+        element: <AdminRoute><MakeAdmin></MakeAdmin></AdminRoute>,
       },
     ],
   },

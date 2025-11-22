@@ -1,11 +1,25 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
-import useAuth from "../../../Hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
+import axios from "axios";
+import { useState } from "react";
+import useAxios from "../../../hooks/useAxios";
 
 const Register = () => {
-  const { createUser } = useAuth();
+  const { createUser, updateUserProfile } = useAuth();
+  const AxiosPublic = useAxios();
   const navigate = useNavigate()
+  const [profilePicture, setProfilePicture] = useState("")
+
+  const handleProfilePic = async (e) => {
+    const image = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", image);
+    const res = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imgApiKey}`, formData);
+    setProfilePicture(res.data.data.url)
+  }
+
   const {
     register,
     handleSubmit,
@@ -13,7 +27,7 @@ const Register = () => {
   } = useForm();
   const onSubmit = (data) => {
     createUser(data.email, data.password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         Swal.fire({
           title: "Registration Successful!",
           text: "Your account has been created successfully.",
@@ -22,6 +36,31 @@ const Register = () => {
           timer: 2000,
           timerProgressBar: true,
         });
+
+
+        //  save user information in database
+        const UserInfo = {
+          email: data.email,
+          role: "user",
+          created_at: new Date().toISOString(),
+          last_login: new Date().toISOString(),
+        }
+        const res = await AxiosPublic.post('/users', UserInfo);
+        console.log(res.data);
+
+        // Update user information in firebase
+        const profileData = {
+          displayName: data.name,
+          photoURL: profilePicture
+        }
+        updateUserProfile(profileData)
+          .then(() => {
+            console.log("name and photo are updated")
+
+          }).catch((error) => {
+            console.error(error)
+          });
+
         navigate('/')
       })
       .catch((error) => {
@@ -38,6 +77,26 @@ const Register = () => {
       <h1 className="text-5xl pl-3.5 pt-4 font-bold">Register now!</h1>
       <div className="card-body">
         <form className="fieldset" onSubmit={handleSubmit(onSubmit)}>
+          {/* Name field */}
+          <label className="label">Name</label>
+          <input
+            type="text"
+            className="input"
+            placeholder="Enter your name"
+            {...register("name")}
+
+          />
+          {/* Profile Picture field */}
+          <label className="label">Profile Picture</label>
+          <input
+            onChange={handleProfilePic}
+            type="file"
+            className="input"
+            placeholder="Upload your profile picture"
+
+          />
+
+          {/* Email field */}
           <label className="label">Email</label>
           <input
             type="email"
@@ -89,7 +148,7 @@ const Register = () => {
           </div>
         </form>
       </div>
-      ;
+
     </div>
   );
 };
