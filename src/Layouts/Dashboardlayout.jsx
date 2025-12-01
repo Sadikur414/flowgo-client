@@ -8,6 +8,8 @@ import {
   FaUserCheck,
   FaUserShield,
   FaMotorcycle,
+  FaBars,
+  FaWallet,
 } from "react-icons/fa";
 import useUserRole from "../hooks/useUserRole";
 
@@ -47,6 +49,31 @@ const DashboardLayout = () => {
             <FaMapMarkerAlt size={16} />
             Tracking
           </NavLink>
+
+          {/* Rider-only links */}
+          {
+            role === "rider" && (
+              <>
+                <NavLink to="/dashboard/pendingDeliveries" className={linkClasses}>
+
+                  <FaBars size={16} />
+                  Pending Deliveries
+                </NavLink>
+
+                <NavLink to="/dashboard/completedDeliveries" className={linkClasses}>
+
+                  <FaUserCheck size={16} />
+                  Completed Deliveries
+                </NavLink>
+                <NavLink to="/dashboard/earning" className={linkClasses}>
+
+                  <FaWallet size={16} />
+                  My Earning
+                </NavLink>
+              </>
+            )
+          }
+
 
           {/* Admin-only links */}
           {role === "admin" && (

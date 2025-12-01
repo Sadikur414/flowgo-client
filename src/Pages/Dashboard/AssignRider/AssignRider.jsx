@@ -46,6 +46,7 @@ const AssignRider = () => {
                     riderId: rider._id,
                     riderName: rider.name,
                     riderContact: rider.contact,
+                    riderEmail: rider.email,
                 }
             );
 
